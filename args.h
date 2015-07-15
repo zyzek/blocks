@@ -3,7 +3,13 @@
 typedef struct Arg Arg;
 
 struct Arg {
-	const char *flag;
-	const char *val;
+	char *flag;
+	char *val;
 };
+
+Arg *init_arglist(int argc, const char *argv[]);
+void free_arglist();
+Arg *get_args();
+size_t get_n_args();
+Arg **args_flag(const char *flag);
 #endif
