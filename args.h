@@ -5,5 +5,5 @@ typedef struct Arg Arg;
 struct Arg {
 	const char *flag;
 	const char *val;
-}
+};
 #endif
