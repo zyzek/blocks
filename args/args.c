@@ -4,7 +4,7 @@
 #include "args.h"
 
 Arg *args;
-Arg **matches;
+const char **matches;
 size_t n_args = 0;
 bool allocated = false;
 
@@ -62,24 +62,27 @@ Arg *init_arglist(int argc, const char *argv[]) {
 	}
 
 	n_args = curr_arg;
-	matches = (Arg **)calloc(n_args, sizeof(Arg *) + 1);
+	matches = (const char **)calloc(n_args, sizeof(char *) + 1);
 	return args;
 }
 
 Arg *get_args() {
+	if (!allocated) return NULL;
 	return args;
 }
 
 size_t get_n_args() {
+	if (!allocated) return 0;
 	return n_args;
 }
 
-Arg **args_flag(const char *flag) {
+const char **args_flag(const char *flag) {
+	if (!allocated) return NULL;
 	size_t m = 0;
 
 	for (int i = 0; i < n_args; ++i) {
 		if (!strcmp(args[i].flag, flag)) {
-			matches[m] = &args[i];
+			matches[m] = (const char *)(args[i].val);
 			++m;
 		}
 	}
@@ -87,4 +90,10 @@ Arg **args_flag(const char *flag) {
 	matches[m] = NULL;
 
 	return matches;
+}
+
+const char *first_arg_flag(const char *flag) {
+	args_flag(flag);
+
+	return matches[0];
 }
