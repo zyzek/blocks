@@ -1,3 +1,3 @@
 # C tools
 * args: Simple C argument/flag handling
-* d_array: dynamically resizable arrays
+* dyn_array: dynamically resizable arrays
