@@ -25,7 +25,7 @@ class UnionFind:
         j_root = self.find_index(j)
 
         if i_root == j_root:
-            return
+            return False
 
         if self.ranks[i_root] < self.ranks[j_root]:
             self.parents[i_root] = j_root
@@ -34,6 +34,7 @@ class UnionFind:
         else:
             self.parents[j_root] = i_root
             self.ranks[i_root] += 1
+        return True
 
     def union(self, x, y):
-        union_index(self.indices[x], self.indices[y])
+        return self.union_index(self.indices[x], self.indices[y])
